@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}?v=1.1">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'post_list' %}">Blog</a>
+        <a href="{% url 'post_create' %}">New Post</a>
+
+        {% if user.is_authenticated %}
+
+          <span style="color:white"> Hi, {{ user.username }} </span>
+          <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type = "submit"> Log Out </button>
+
+          </form>
+        
+        {% else %}
+
+            <a href = "{% url 'login' %}"> Log In </a>
+            <a href = "{% url 'signup' %}"> Sign Up </a>
+        
+        {% endif %} 
+        
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Blog project built with Django</p>
+    </footer>
+
+</body>
+</html>

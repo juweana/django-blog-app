@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Academy{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'academy/style.css' %}">
+</head>
+
+<body>
+<nav>
+  <a href="{% url 'academy:home' %}">Home</a>
+  <a href="{%  url 'academy:courses'  %}">Courses</a>
+  <a href="{%  url 'academy:teachers' %}">Teachers</a>
+  <a href="{%  url 'academy:contact' %}">Contact</a>
+  
+</nav>
+
+<div class="page">
+  {% block content %}{% endblock %}
+
+</div>
+
+</body>
+
+
+</html>
