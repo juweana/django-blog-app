@@ -4,10 +4,26 @@
 
 {% block content %}
 <h1>Courses</h1>
-{% for course in courses %}
+<form method="get">
+  <input type="text" name="search" placeholder="Search Courses" value="{{ search}}">
+  <button type="submit"> Search </button>
+</form>
+{% for course in page_obj %}
   <div class="card">
     <h2>{{ course.title }}</h2>
-    <p>{{ course.description }}</p>
+    <a href="{% url 'academy:course_detail' course.slug %}"> Read more</a>
+
   </div>
+  {% empty %}
+    <p> No Course Found.</p>
+  
 {% endfor %}
+
+<div class="pagination">
+  <span> Page {{page_obj.number}} of {{ page_obj.paginator.num_pages}}</span>
+  {% if page_obj.has_previous %} <a href="?search={{ search }}&page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %}
+  {% if page_obj.has_next %}<a href="?search={{ search }}&page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>
 {% endblock %}
